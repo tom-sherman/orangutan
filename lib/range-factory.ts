@@ -1,4 +1,4 @@
-import { RangeFactory, arrToRangeFactory } from './util'
+import { RangeFactory, arrToRangeFactory, PartialRangeFactory } from './util'
 import { range } from './range'
 
 export const rangeFactory = (
@@ -10,7 +10,9 @@ export const rangeFactory = (
 /**
  * Takes the first n elements from a range.
  */
-export const take = (n: number) => (factory: RangeFactory): RangeFactory =>
+export const take = (n: number): PartialRangeFactory => (
+  factory: RangeFactory
+) =>
   function* takeGen() {
     if (Array.isArray(factory)) {
       factory = arrToRangeFactory(factory)
@@ -73,7 +75,9 @@ export const nonEmpty = (factory: RangeFactory) => !factory().next().done
 /**
  * Discards (drops) `n` elements from the start of the range.
  */
-export const drop = (n: number) => (factory: RangeFactory) =>
+export const drop = (n: number): PartialRangeFactory => (
+  factory: RangeFactory
+) =>
   function* dropGen() {
     const r = factory()
     let count = 0
@@ -99,13 +103,14 @@ export const splitAt = (n: number) => (factory: RangeFactory) =>
     yield drop(n)(() => factory())
   }
 
-  /**
-   * Concat multiple ranges together.
-   */
-export const concat = (...factories: RangeFactory[]) => function* concatGen() {
-  for (const factory of factories) {
-    for (const element of factory()) {
-      yield element
+/**
+ * Concat multiple ranges together.
+ */
+export const concat = (...factories: RangeFactory[]) =>
+  function* concatGen() {
+    for (const factory of factories) {
+      for (const element of factory()) {
+        yield element
+      }
     }
   }
-}

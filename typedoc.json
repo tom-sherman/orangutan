@@ -1,0 +1,9 @@
+{
+  "mode": "file",
+  "out": "doc",
+  "theme": "minimal",
+  "ignoreCompilerErrors": "true",
+  "moduleResolution": "node",
+  "stripInternal": "true",
+  "module": "commonjs"
+}

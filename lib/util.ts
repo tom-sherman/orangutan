@@ -1,5 +1,9 @@
 export type Range = IterableIterator<number>
 export type RangeFactory = () => Range
+/**
+ * A function that is returned from other range factory methods.
+ */
+export type PartialRangeFactory = (factory: RangeFactory) => RangeFactory
 
 /**
  * Converts an array to a generator.
