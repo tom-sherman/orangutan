@@ -15,3 +15,29 @@ export const arrToRangeFactory = (array: number[]): RangeFactory =>
  * Converts an array to an iterator.
  */
 export const arrToRange = (array: number[]): Range => arrToRangeFactory(array)()
+
+/**
+ * Checks if a range is longer than `n`
+ */
+export const longerThan = (n: number) => (factory: RangeFactory) => {
+  const r = factory()
+  let length = 0
+  for (const _ of r) {
+    length++
+    if (length > n) {
+      return true
+    }
+  }
+
+  // Handle empty ranges
+  if (length > n) {
+    return true
+  }
+
+  return false
+}
+
+/**
+ * Checks if a range is not empty ie. has elements.
+ */
+export const nonEmpty = (factory: RangeFactory) => !factory().next().done

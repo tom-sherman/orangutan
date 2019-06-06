@@ -47,32 +47,6 @@ export const cycle = (factory: RangeFactory): RangeFactory =>
   }
 
 /**
- * Checks if a range is longer than `n`
- */
-export const longerThan = (n: number) => (factory: RangeFactory) => {
-  const r = factory()
-  let length = 0
-  for (const _ of r) {
-    length++
-    if (length > n) {
-      return true
-    }
-  }
-
-  // Handle empty ranges
-  if (length > n) {
-    return true
-  }
-
-  return false
-}
-
-/**
- * Checks if a range is not empty ie. has elements.
- */
-export const nonEmpty = (factory: RangeFactory) => !factory().next().done
-
-/**
  * Discards (drops) `n` elements from the start of the range.
  */
 export const drop = (n: number): PartialRangeFactory => (

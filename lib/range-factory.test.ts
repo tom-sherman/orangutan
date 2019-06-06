@@ -1,8 +1,6 @@
 import {
   take,
   cycle,
-  longerThan,
-  nonEmpty,
   splitAt,
   drop,
   concat,
@@ -87,49 +85,6 @@ describe('cycle', () => {
   test('should throw when passing range', () => {
     const r = (range(1) as unknown) as RangeFactory
     expect(() => cycle(r)().next()).toThrow('factory is not a function')
-  })
-})
-
-describe('longer than', () => {
-  test('returns true when the range is longer', () => {
-    expect(longerThan(10)(infiniteRangeFactory)).toBe(true)
-    expect(longerThan(1)(infiniteRangeFactory)).toBe(true)
-    expect(longerThan(0)(infiniteRangeFactory)).toBe(true)
-    expect(longerThan(-1)(infiniteRangeFactory)).toBe(true)
-    expect(longerThan(-10)(infiniteRangeFactory)).toBe(true)
-
-    expect(longerThan(2)(finiteRangeFactory)).toBe(true)
-    expect(longerThan(1)(finiteRangeFactory)).toBe(true)
-    expect(longerThan(0)(finiteRangeFactory)).toBe(true)
-    expect(longerThan(-1)(finiteRangeFactory)).toBe(true)
-    expect(longerThan(-10)(finiteRangeFactory)).toBe(true)
-
-    expect(longerThan(-1)(emptyRangeFactory)).toBe(true)
-  })
-
-  test('returns false when range is same length', () => {
-    expect(longerThan(3)(finiteRangeFactory)).toBe(false)
-
-    expect(longerThan(0)(emptyRangeFactory)).toBe(false)
-  })
-
-  test('returns false when range is shorter', () => {
-    expect(longerThan(4)(finiteRangeFactory)).toBe(false)
-    expect(longerThan(5)(finiteRangeFactory)).toBe(false)
-
-    expect(longerThan(1)(emptyRangeFactory)).toBe(false)
-    expect(longerThan(2)(emptyRangeFactory)).toBe(false)
-  })
-})
-
-describe('non empty', () => {
-  test('returns true with non empty range', () => {
-    expect(nonEmpty(finiteRangeFactory)).toBe(true)
-    expect(nonEmpty(infiniteRangeFactory)).toBe(true)
-  })
-
-  test('returns false with empty range', () => {
-    expect(nonEmpty(emptyRangeFactory)).toBe(false)
   })
 })
 
