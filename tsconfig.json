@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "sourceRoot": "lib",
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": ["es2018"],
+    "target": "es6",
+    "esModuleInterop": true
+  }
+}
