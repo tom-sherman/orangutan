@@ -5,7 +5,9 @@ import {
   nonEmpty,
   splitAt,
   drop,
-  concat
+  concat,
+  map,
+  entries
 } from './range-factory'
 import { range } from './range'
 import { RangeFactory } from './util'
@@ -248,5 +250,46 @@ describe('concat', () => {
     expect(Array.from(concat(finiteRangeFactory, emptyRangeFactory)())).toEqual(
       expected
     )
+  })
+})
+
+describe('entries', () => {
+  test('entries on empty range', () => {
+    expect(Array.from(entries(emptyRangeFactory)())).toEqual([])
+  })
+
+  test('entries on finite range', () => {
+    expect(Array.from(entries(finiteRangeFactory)())).toEqual([
+      [0, 1],
+      [1, 2],
+      [2, 3]
+    ])
+  })
+  test('entries on infinite range', () => {
+    const infinite = entries(infiniteRangeFactory)()
+    expect(infinite.next()).toEqual({ value: [0, 1], done: false })
+    expect(infinite.next()).toEqual({ value: [1, 2], done: false })
+    expect(infinite.next()).toEqual({ value: [2, 3], done: false })
+  })
+})
+
+describe('map', () => {
+  test('map with noop', () => {
+    const noop = () => {}
+    expect(Array.from(map(noop)(finiteRangeFactory)())).toEqual([
+      undefined,
+      undefined,
+      undefined
+    ])
+  })
+
+  test('map element', () => {
+    const mod2 = map(x => x % 2)(finiteRangeFactory)()
+    expect(Array.from(mod2)).toEqual([1, 0, 1])
+  })
+
+  test('map element with index', () => {
+    const mapped = map((x, i) => x + i)(finiteRangeFactory)()
+    expect(Array.from(mapped)).toEqual([1, 3, 5])
   })
 })

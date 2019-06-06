@@ -114,3 +114,36 @@ export const concat = (...factories: RangeFactory[]) =>
       }
     }
   }
+
+/**
+ * Yields an array of the element and the index. [i, element]
+ * Similar to `Array.prototype.entries`.
+ */
+export const entries = (factory: RangeFactory) =>
+  function* entriesGen(): IterableIterator<[number, number]> {
+    let i = 0
+    for (const element of factory()) {
+      yield [i, element]
+      i++
+    }
+  }
+
+type MapCallback = (element: number, index: number) => any
+
+/**
+ * Maps over every element in the array.
+ * Similar to `Array.prototype.map`.
+ *
+ * An example of an infinite range of repeating 1s and 0s:
+ * ```js
+ * map(x => x % 2)(range(1))
+ * ```
+ */
+export const map = (cb: MapCallback): PartialRangeFactory => (
+  factory: RangeFactory
+) =>
+  function* mapGen() {
+    for (const [i, element] of entries(factory)()) {
+      yield cb(element, i)
+    }
+  }
