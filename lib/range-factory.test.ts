@@ -40,6 +40,9 @@ describe('take', () => {
 
     const r4 = take(0)(infiniteRangeFactory)()
     expect(Array.from(r4)).toEqual([])
+
+    const takeNegative = take(-1)(infiniteRangeFactory)()
+    expect(Array.from(takeNegative)).toEqual([])
   })
 
   test('take from finite range, n < length', () => {
@@ -53,10 +56,24 @@ describe('take', () => {
     expect(Array.from(takeNegativeRange)).toEqual([])
   })
 
-  test.todo('take from finite range, n = length')
-  test.todo('take from finite range, n > length')
+  test('take from finite range, n = length', () => {
+    expect(Array.from(take(3)(finiteRangeFactory)())).toEqual([1, 2, 3])
+  })
 
-  test.todo('take from empty range')
+  test('take from finite range, n > length', () => {
+    expect(Array.from(take(4)(finiteRangeFactory)())).toEqual([1, 2, 3])
+  })
+
+  test('take from empty range', () => {
+    const take0 = take(0)(emptyRangeFactory)()
+    expect(Array.from(take0)).toEqual([])
+
+    const take1 = take(1)(emptyRangeFactory)()
+    expect(Array.from(take1)).toEqual([])
+
+    const takeNegative = take(-1)(emptyRangeFactory)()
+    expect(Array.from(takeNegative)).toEqual([])
+  })
 })
 
 describe('cycle', () => {
