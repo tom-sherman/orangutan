@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "jest",
-    "doc": "typedoc"
+    "docs": "typedoc"
   },
   "keywords": [],
   "author": "Tom Sherman <the.tomsherman@gmail.com> (https://tom-sherman.com/)",
