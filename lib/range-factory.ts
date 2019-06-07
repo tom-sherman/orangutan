@@ -12,7 +12,7 @@ export const rangeFactory = (
  */
 export const take = (n: number): PartialRangeFactory => (
   factory: RangeFactory
-) =>
+): RangeFactory =>
   function* takeGen() {
     if (Array.isArray(factory)) {
       factory = arrToRangeFactory(factory)
@@ -51,7 +51,7 @@ export const cycle = (factory: RangeFactory): RangeFactory =>
  */
 export const drop = (n: number): PartialRangeFactory => (
   factory: RangeFactory
-) =>
+): RangeFactory =>
   function* dropGen() {
     const r = factory()
     let count = 0
@@ -80,7 +80,7 @@ export const splitAt = (n: number) => (factory: RangeFactory) =>
 /**
  * Concat multiple ranges together.
  */
-export const concat = (...factories: RangeFactory[]) =>
+export const concat = (...factories: RangeFactory[]): RangeFactory =>
   function* concatGen() {
     for (const factory of factories) {
       for (const element of factory()) {
@@ -109,13 +109,13 @@ type MapCallback = (element: number, index: number) => any
  * Similar to `Array.prototype.map`.
  *
  * An example of an infinite range of repeating 1s and 0s:
- * ```js
+ * ```typescript
  * map(x => x % 2)(range(1))
  * ```
  */
 export const map = (cb: MapCallback): PartialRangeFactory => (
   factory: RangeFactory
-) =>
+): RangeFactory =>
   function* mapGen() {
     for (const [i, element] of entries(factory)()) {
       yield cb(element, i)

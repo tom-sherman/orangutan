@@ -1,9 +1,12 @@
 {
   "mode": "file",
   "out": "doc",
-  "theme": "minimal",
+  "theme": "markdown",
   "ignoreCompilerErrors": "true",
   "moduleResolution": "node",
   "stripInternal": "true",
-  "module": "commonjs"
+  "module": "commonjs",
+  "exclude": [
+    "lib/*.test.ts"
+  ]
 }

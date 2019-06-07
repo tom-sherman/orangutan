@@ -1,20 +1,22 @@
 {
-  "name": "rangums",
+  "name": "orangutan",
   "version": "1.0.0",
-  "description": "",
+  "description": "A lazy range and list library for JavaScript.",
   "main": "dist/index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "doc": "typedoc"
   },
   "keywords": [],
   "author": "Tom Sherman <the.tomsherman@gmail.com> (https://tom-sherman.com/)",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@babel/types": "^7.4.4",
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
     "ts-jest": "^24.0.2",
     "typedoc": "^0.14.2",
+    "typedoc-plugin-markdown": "^1.2.1",
     "typescript": "^3.5.1"
   }
 }
