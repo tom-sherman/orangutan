@@ -179,9 +179,53 @@ describe('split at', () => {
     expect(expandSplitRange(split4)).toEqual([[1, 2, 3], []])
   })
 
-  test.todo('infinite range')
+  test('infinite range, n = 0', () => {
+    const [left, right] = splitAt(0)(infiniteRangeFactory)()
+    const leftIterator = left()
+    const rightIterator = right()
 
-  test.todo('empty range')
+    expect(Array.from(leftIterator)).toEqual([])
+    expect(rightIterator.next()).toEqual({ value: 1, done: false })
+    expect(rightIterator.next()).toEqual({ value: 2, done: false })
+    expect(rightIterator.next()).toEqual({ value: 3, done: false })
+    expect(rightIterator.next()).toEqual({ value: 4, done: false })
+  })
+
+  test('infinite range, n > 0', () => {
+    const [left, right] = splitAt(3)(infiniteRangeFactory)()
+    const leftIterator = left()
+    const rightIterator = right()
+
+    expect(Array.from(leftIterator)).toEqual([1, 2, 3])
+    expect(rightIterator.next()).toEqual({ value: 4, done: false })
+    expect(rightIterator.next()).toEqual({ value: 5, done: false })
+    expect(rightIterator.next()).toEqual({ value: 6, done: false })
+  })
+
+  test('infinite range, n < 0', () => {
+    const [left, right] = splitAt(-1)(infiniteRangeFactory)()
+    const leftIterator = left()
+    const rightIterator = right()
+
+    expect(Array.from(leftIterator)).toEqual([])
+    expect(rightIterator.next()).toEqual({ value: 1, done: false })
+    expect(rightIterator.next()).toEqual({ value: 2, done: false })
+    expect(rightIterator.next()).toEqual({ value: 3, done: false })
+    expect(rightIterator.next()).toEqual({ value: 4, done: false })
+  })
+
+  test('empty range', () => {
+    const expected = [[], []]
+
+    const split0 = splitAt(0)(emptyRangeFactory)()
+    expect(expandSplitRange(split0)).toEqual(expected)
+
+    const split1 = splitAt(1)(emptyRangeFactory)()
+    expect(expandSplitRange(split1)).toEqual(expected)
+
+    const splitNegative = splitAt(-1)(emptyRangeFactory)()
+    expect(expandSplitRange(splitNegative)).toEqual(expected)
+  })
 })
 
 describe('concat', () => {
