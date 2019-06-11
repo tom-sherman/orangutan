@@ -2,6 +2,7 @@
   "name": "@tom-sherman/orangutan",
   "version": "0.0.1",
   "description": "A lazy range and list library for JavaScript.",
+  "main": "dist/index.js",
   "scripts": {
     "test": "jest",
     "docs": "typedoc",
