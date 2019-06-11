@@ -9,9 +9,20 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [],
+  "keywords": [
+    "range",
+    "lazy",
+    "generators",
+    "iterators",
+    "lazy evaluation",
+    "typescript"
+  ],
   "author": "Tom Sherman <the.tomsherman@gmail.com> (https://tom-sherman.com/)",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tom-sherman/orangutan"
+  },
   "devDependencies": {
     "@types/jest": "^24.0.13",
     "jest": "^24.8.0",
