@@ -5,7 +5,9 @@
     "sourceMap": true,
     "outDir": "dist",
     "lib": ["es2018"],
-    "target": "es6",
-    "esModuleInterop": true
+    "target": "esnext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true
   }
 }
